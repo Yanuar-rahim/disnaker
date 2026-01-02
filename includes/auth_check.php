@@ -1,13 +1,10 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['role'])) {
-    header("Location: ../login.php");
-    exit;
-}
+$required_role = $_SESSION['role'];
 
-if (isset($required_role) && $_SESSION['role'] !== $required_role) {
-    header("Location: ../login.php");
+if (!isset($_SESSION['login']) || $_SESSION['role'] !== $required_role) {
+    header("Location: ../index.php");
     exit;
 }
 ?>

@@ -10,20 +10,21 @@
 </head>
 
 <body>
-
+    <span id="home"></span>
     <?php include "includes/header-index.php"; ?>
 
     <main class="main-content">
 
         <section class="hero">
             <div class="hero-content">
-                <h2>Sistem Informasi Pelayanan Terpadu</h2>
-                <p>Dinas Ketenagakerjaan Berbasis Web untuk Masyarakat Umum</p>
+                <h2>Sistem Informasi Pelayanan Terpadu Dinas Ketenagakerjaan</h2>
+                <p>Melayani masyarakat secara cepat, transparan, dan berbasis digital</p>
                 <div class="hero-btn">
                     <a href="login.php" class="btn-primary">Ajukan Layanan</a>
-                    <a href="public/cek_status.php" class="btn-secondary">Cek Status</a>
+                    <a href="login.php" class="btn-secondary">Cek Status</a>
                 </div>
             </div>
+            <span id="layanan"></span>
         </section>
 
         <section class="section">
@@ -52,6 +53,7 @@
                     </div>
                 </div>
             </div>
+            <span id="informasi"></span>
         </section>
 
         <section class="section bg-light">

@@ -1,3 +1,7 @@
+<?php
+include "config/koneksi.php";
+$sql = mysqli_query($koneksi, "SELECT * FROM layanan");
+?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -35,22 +39,18 @@
                 </div>
 
                 <div class="grid">
-                    <div class="card">
-                        <h4>Kartu Pencari Kerja (AK1)</h4>
-                        <p>Pendaftaran dan pencetakan kartu pencari kerja secara online.</p>
-                    </div>
-                    <div class="card">
-                        <h4>Pelatihan Kerja</h4>
-                        <p>Informasi dan pendaftaran pelatihan keterampilan kerja.</p>
-                    </div>
-                    <div class="card">
-                        <h4>Lowongan Kerja</h4>
-                        <p>Informasi lowongan kerja dari perusahaan mitra.</p>
-                    </div>
-                    <div class="card">
-                        <h4>Pengaduan Ketenagakerjaan</h4>
-                        <p>Layanan pengaduan masalah ketenagakerjaan.</p>
-                    </div>
+                    <?php if (mysqli_num_rows($sql) > 0): ?>
+                        <?php while ($row = mysqli_fetch_array($sql)): ?>
+                            <div class="card">
+                                <h4><?= $row['nama_layanan'] ?></h4>
+                                <p><?= $row['deskripsi'] ?></p>
+                            </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <div class="card">
+                            <h4>Tidak ada layanan</h4>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <span id="informasi"></span>
@@ -85,13 +85,7 @@
             </div>
         </section>
     </main>
-
     <?php include "includes/footer.php"; ?>
-
-    <script>
-        function toggleMenu() {
-            document.querySelector("nav ul").classList.toggle("active");
-        }
-    </script>
 </body>
+
 </html>

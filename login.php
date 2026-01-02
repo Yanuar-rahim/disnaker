@@ -27,6 +27,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['login'] = true;
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['email'] = $user['email'];
+                $_SESSION['nik'] = $user['nik'];
                 $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
                 $_SESSION['role'] = $user['role']; // Menyimpan role
                 $_SESSION['success'] = "Berhasil login! Selamat datang, " . $user['nama_lengkap'] . ".";
@@ -73,10 +74,12 @@ mysqli_close($koneksi);
 
                     <?php if ($error): ?>
                         <div class="alert error"><?= $error; ?></div>
+                        <?php unset($error); ?>
                     <?php endif; ?>
 
                     <?php if ($success): ?>
                         <div class="alert success"><?= $success; ?></div>
+                        <?php unset($success); ?>
                     <?php endif; ?>
 
                     <form action="" method="POST">

@@ -69,10 +69,12 @@ mysqli_close($koneksi);
 
                     <?php if ($error): ?>
                         <div class="alert error"><?= $error; ?></div>
+                        <?php unset($error); ?>
                     <?php endif; ?>
 
                     <?php if ($success): ?>
                         <div class="alert success"><?= $success; ?></div>
+                        <?php unset($success); ?>
                     <?php endif; ?>
 
                     <form action="" method="POST">

@@ -11,6 +11,8 @@ if (isset($_SESSION['success'])) {
 }
 
 $nama = $_SESSION['nama_lengkap'];
+
+$layanan = mysqli_query($koneksi, "SELECT * FROM layanan");
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -32,6 +34,7 @@ $nama = $_SESSION['nama_lengkap'];
 
     <?php if ($alertSuccess): ?>
         <div class="alert-success"><?= $alertSuccess; ?></div>
+        <?php unset($_SESSION['success']); ?>
     <?php endif; ?>
 
     <?php include "../includes/navbar.php"; ?>
@@ -39,11 +42,11 @@ $nama = $_SESSION['nama_lengkap'];
     <main class="main-content">
         <section class="hero">
             <div class="hero-content">
-                <h2>Selamat Datang, <?= $_SESSION['nama_lengkap']; ?>!</h2>
-                <p><?= $_SESSION['role']; ?>Halaman ini menyediakan layanan yang dapat Anda akses sebagai pengguna terdaftar.</p>
+                <h2>Selamat Datang, <?= $_SESSION['nama_lengkap']; ?>!</h2>Halaman ini menyediakan layanan yang dapat Anda akses sebagai pengguna
+                    terdaftar.</p>
                 <div class="hero-btn">
-                    <a href="services.php" class="btn-primary">Lihat Layanan</a>
-                    <a href="cek_status.php" class="btn-secondary">Cek Status Pengajuan</a>
+                    <a href="ajukan_layanan.php#layanan" class="btn-primary">Lihat Layanan</a>
+                    <a href="riwayat_pengajuan.php" class="btn-secondary">Cek Status Pengajuan</a>
                 </div>
             </div>
         </section>
@@ -56,26 +59,17 @@ $nama = $_SESSION['nama_lengkap'];
                 </div>
 
                 <div class="grid">
-                    <div class="card">
-                        <h4>Kartu Pencari Kerja (AK1)</h4>
-                        <p>Ajukan dan cetak kartu pencari kerja secara online.</p>
-                        <a href="ajukan_ak1.php" class="btn-primary">Ajukan Sekarang</a>
-                    </div>
-                    <div class="card">
-                        <h4>Pelatihan Kerja</h4>
-                        <p>Daftar pelatihan keterampilan kerja untuk meningkatkan kemampuan Anda.</p>
-                        <a href="pelatihan_kerja.php" class="btn-primary">Daftar Pelatihan</a>
-                    </div>
-                    <div class="card">
-                        <h4>Lowongan Kerja</h4>
-                        <p>Lihat berbagai lowongan kerja dari perusahaan mitra kami.</p>
-                        <a href="lowongan_kerja.php" class="btn-primary">Lihat Lowongan</a>
-                    </div>
-                    <div class="card">
-                        <h4>Pengaduan Ketenagakerjaan</h4>
-                        <p>Laporkan masalah terkait ketenagakerjaan yang Anda alami.</p>
-                        <a href="pengaduan.php" class="btn-primary">Lapor Sekarang</a>
-                    </div>
+                    <?php if (mysqli_num_rows($layanan) > 0): ?>
+                        <?php while ($row = mysqli_fetch_array($layanan)): ?>
+                            <div class="card">
+                                <h4><?= $row['nama_layanan'] ?></h4>
+                                <p><?= $row['deskripsi'] ?></p>
+                                <a href="ajukan_layanan.php" class="btn-primary">Ajukan Sekarang</a>
+                            </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <h4>Tidak ada data</h4>
+                    <?php endif; ?>
                 </div>
             </div>
         </section>

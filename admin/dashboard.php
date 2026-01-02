@@ -4,12 +4,6 @@ include "../includes/auth_check.php";
 
 $required_role = $_SESSION['role'];
 
-$alertSuccess = "";
-if (isset($_SESSION['success'])) {
-    $alertSuccess = $_SESSION['success'];
-    unset($_SESSION['success']);
-}
-
 $nama = $_SESSION['nama_lengkap'];
 
 $pengajuan = mysqli_query($koneksi, "SELECT * FROM pengajuan");
@@ -20,6 +14,10 @@ $diproses = mysqli_query($koneksi, "SELECT * FROM pengajuan WHERE status = 'dipr
 $pengajuan_diproses = mysqli_num_rows($diproses);
 $selesai = mysqli_query($koneksi, "SELECT * FROM pengajuan WHERE status = 'selesai'");
 $pengajuan_selesai = mysqli_num_rows($selesai);
+
+// Menambahkan Query Lowongan Pekerjaan
+$lowongan = mysqli_query($koneksi, "SELECT * FROM lowongan_kerja");
+$total_lowongan = mysqli_num_rows($lowongan);
 ?>
 
 <!DOCTYPE html>
@@ -39,8 +37,9 @@ $pengajuan_selesai = mysqli_num_rows($selesai);
         <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
-    <?php if ($alertSuccess): ?>
-        <div class="alert-success"><?= $alertSuccess; ?></div>
+    <?php if (isset($_SESSION['success'])): ?>
+        <div class="alert-success"><?= $_SESSION['success']; ?></div>
+        <?php unset($_SESSION['success']); ?>
     <?php endif; ?>
 
     <?php include "../includes/sidebar.php"; ?>
@@ -98,6 +97,37 @@ $pengajuan_selesai = mysqli_num_rows($selesai);
                             <td><span class="badge badge-total">Total Pengajuan</span></td>
                             <td><?= $total_pengajuan; ?></td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tabel Lowongan Pekerjaan -->
+            <div class="lowongan-tabel">
+                <h3>Data Lowongan Pekerjaan</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Posisi</th>
+                            <th>Perusahaan</th>
+                            <th style="text-align: center;">Status</th>
+                            <th style="text-align: center" width="10%">Jumlah Lowongan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (mysqli_num_rows($lowongan) > 0): ?>
+                            <?php while ($lowongan_data = mysqli_fetch_assoc($lowongan)): ?>
+                                <tr>
+                                    <td><?= $lowongan_data['posisi']; ?></td>
+                                    <td><?= $lowongan_data['perusahaan']; ?></td>
+                                    <td style="text-align: center"><span class="badge badge-new"><?= $lowongan_data['status']; ?></span></td>
+                                    <td style="text-align: center"><?= $lowongan_data['jumlah_lowongan']; ?></td>
+                                </tr>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="4" class="empty-data">Tidak ada lowongan pekerjaan</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>

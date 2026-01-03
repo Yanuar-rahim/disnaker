@@ -70,8 +70,9 @@ if (isset($_SESSION['error'])) {
                 <div class="grid">
                     <?php while ($row = mysqli_fetch_assoc($result)): ?>
                         <div class="card">
-                            <h4><?= $row['nama_layanan']; ?></h4>
-                            <p><?= $row['deskripsi']; ?></p>
+                            <img src="../uploads/<?= $row['gambar']; ?>" alt="<?= $row['nama_layanan']; ?>" class="card-img">
+                                <h4><?= $row['nama_layanan']; ?></h4>
+                                <p><?= $row['deskripsi']; ?></p>
                             <a href="form_ajukan_layanan.php?id=<?= $row['id']; ?>" class="btn-primary">Ajukan Sekarang</a>
                         </div>
                     <?php endwhile; ?>

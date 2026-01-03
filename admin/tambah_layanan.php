@@ -8,15 +8,19 @@ $required_role = $_SESSION['role'];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama_layanan = $_POST['nama_layanan'];
     $deskripsi = $_POST['deskripsi'];
-
-    $query = "INSERT INTO layanan (nama_layanan, deskripsi) VALUES ('$nama_layanan', '$deskripsi')";
-
-    if (mysqli_query($koneksi, $query)) {
-        $_SESSION['success'] = "Layanan berhasil ditambahkan.";
-        header("Location: layanan.php");
-        exit();
-    } else {
-        $_SESSION['error'] = "Terjadi kesalahan saat menambahkan layanan.";
+    $gambar = $_FILES['gambar']['name'];
+    $gambar_tmp = $_FILES['gambar']['tmp_name'];
+    $gambar_path = "../uploads/" . $gambar;
+ 
+    if (move_uploaded_file($gambar_tmp, $gambar_path)) {
+        $query_layanan = mysqli_query($koneksi,"INSERT INTO layanan (nama_layanan, deskripsi, gambar) VALUES ('$nama_layanan', '$deskripsi', '$gambar')");
+        if (mysqli_query($koneksi, $query)) {
+            $_SESSION['success'] = "Layanan berhasil ditambahkan.";
+            header("Location: layanan.php");
+            exit();
+        } else {
+            $_SESSION['error'] = "Terjadi kesalahan saat menambahkan layanan.";
+        }
     }
 }
 ?>
@@ -41,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="alert-error"><?= $_SESSION['error']; ?></div>
                 <?php unset($_SESSION['error']); ?>
             <?php endif; ?>
-            <form method="POST" class="form-input">
+            <form method="POST" class="form-input" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nama_layanan">Nama Layanan</label>
                     <input type="text" name="nama_layanan" id="nama_layanan" required>
@@ -49,6 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="form-group">
                     <label for="deskripsi">Deskripsi</label>
                     <textarea name="deskripsi" id="deskripsi" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="gambar">Gambar</label>
+                    <input type="file" name="gambar" id="gambar">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn-crud">Tambah Layanan</button>

@@ -61,7 +61,7 @@ $layanan = mysqli_query($koneksi, "SELECT * FROM layanan");
                 <div class="grid">
                     <?php if (mysqli_num_rows($layanan) > 0): ?>
                         <?php while ($row = mysqli_fetch_array($layanan)): ?>
-                            <div class="card">
+                            <div class="card-index">
                                 <h4><?= $row['nama_layanan'] ?></h4>
                                 <p><?= $row['deskripsi'] ?></p>
                                 <a href="ajukan_layanan.php" class="btn-primary">Ajukan Sekarang</a>

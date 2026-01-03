@@ -22,6 +22,41 @@ $data = mysqli_fetch_array($result);
     <title>Detail Lowongan</title>
     <link rel="stylesheet" href="../assets/css/index.css">
     <link rel="stylesheet" href="../assets/css/user.css">
+
+    <!-- CSS untuk mencetak -->
+    <style>
+        @media print {
+            /* Menyembunyikan navbar, footer, dan tombol cetak saat dicetak */
+            .navbar, .footer, .btn-primary, .hero {
+                display: none;
+            }
+
+            .main-content {
+                padding: 0;
+            }
+
+            .card {
+                border: 1px solid #ccc;
+                padding: 20px;
+                margin: 20px;
+                page-break-inside: avoid;
+            }
+
+            .card-text {
+                margin: 10px;
+            }
+
+            .card-header, .card-footer {
+                background-color: #f4f4f4;
+                padding: 10px;
+                font-weight: bold;
+            }
+
+            .container {
+                width: 80%;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -39,17 +74,20 @@ $data = mysqli_fetch_array($result);
         <section class="section">
             <div class="container">
                 <div class="card">
-                    <div class="card-header">
-                        <h4><?= $data['perusahaan']; ?></h4>
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Posisi:</strong> <?= $data['posisi']; ?></p>
-                        <p><strong>Status:</strong> <?= $data['status']; ?></p>
-                        <p><strong>Deskripsi:</strong> <?= nl2br($data['deskripsi']); ?></p>
-                        <p><strong>Jumlah Lowongan:</strong> <?= $data['jumlah_lowongan']; ?></p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="lowongan.php" class="btn-primary">Kembali ke Daftar Lowongan</a>
+                    <div class="card-text">
+                        <div class="card-header">
+                            <h4><?= $data['perusahaan']; ?></h4>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Posisi:</strong> <?= $data['posisi']; ?></p>
+                            <p><strong>Status:</strong> <?= $data['status']; ?></p>
+                            <p><strong>Deskripsi:</strong> <?= nl2br($data['deskripsi']); ?></p>
+                            <p><strong>Jumlah Lowongan:</strong> <?= $data['jumlah_lowongan']; ?></p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn-primary" onclick="history.back();">Kembali ke daftar lowongan</button>
+                            <button class="btn-primary" onclick="window.print();">Cetak</button>
+                        </div>
                     </div>
                 </div>
             </div>

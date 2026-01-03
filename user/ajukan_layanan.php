@@ -6,7 +6,7 @@ $required_role = $_SESSION['role'];
 
 // Ambil data pengguna dari sesi
 $nama = $_SESSION['nama_lengkap'];
-$user_id = $_SESSION['user_id'];
+$id = $_SESSION['id'];
 
 $alertSuccess = "";
 $alertError = "";
@@ -53,13 +53,13 @@ if (isset($_SESSION['error'])) {
 
     <main class="main-content">
         <section class="hero">
-            <span id="layanan"></span>
             <div class="hero-content">
                 <h2>Ajukan Layanan</h2>
                 <p>Silakan pilih layanan yang ingin Anda ajukan dan isi form di bawah ini.</p>
             </div>
         </section>
-
+        
+        <span id="layanan"></span>
         <section class="section">
             <div class="container">
                 <div class="section-title">
@@ -71,8 +71,10 @@ if (isset($_SESSION['error'])) {
                     <?php while ($row = mysqli_fetch_assoc($result)): ?>
                         <div class="card">
                             <img src="../uploads/<?= $row['gambar']; ?>" alt="<?= $row['nama_layanan']; ?>" class="card-img">
+                            <div class="card-text">
                                 <h4><?= $row['nama_layanan']; ?></h4>
                                 <p><?= $row['deskripsi']; ?></p>
+                            </div>
                             <a href="form_ajukan_layanan.php?id=<?= $row['id']; ?>" class="btn-primary">Ajukan Sekarang</a>
                         </div>
                     <?php endwhile; ?>

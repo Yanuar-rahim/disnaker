@@ -37,19 +37,21 @@ $result = mysqli_query($koneksi, $query);
                 <h2 style="text-align: center; margin-bottom: 30px;">Lowongan Pekerjaan</h2>
                 <div class="card-container">
                     <?php while ($data = mysqli_fetch_assoc($result)): ?>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4><?= $data['perusahaan']; ?></h4>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-text">
+                                    <h4><?= $data['perusahaan']; ?></h4>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>Posisi:</strong> <?= $data['posisi']; ?></p>
+                                    <p><strong>Status:</strong> <?= $data['status']; ?></p>
+                                    <p><strong>Jumlah Lowongan:</strong> <?= $data['jumlah_lowongan']; ?></p>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="detail_lowongan.php?id=<?= $data['id']; ?>" class="btn-action">Detail</a>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <p><strong>Posisi:</strong> <?= $data['posisi']; ?></p>
-                            <p><strong>Status:</strong> <?= $data['status']; ?></p>
-                            <p><strong>Jumlah Lowongan:</strong> <?= $data['jumlah_lowongan']; ?></p>
-                        </div>
-                        <div class="card-footer">
-                            <a href="detail_lowongan.php?id=<?= $data['id']; ?>" class="btn-action">Detail</a>
-                        </div>
-                    </div>
                     <?php endwhile; ?>
                 </div>
             </div>

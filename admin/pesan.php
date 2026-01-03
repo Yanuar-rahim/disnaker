@@ -67,8 +67,8 @@ $pesan = mysqli_query($koneksi, "UPDATE pesan_user SET status = 'read'");
 
                 <!-- Aksi untuk ekspor atau hapus pesan -->
                 <div>
-                    <button class="btn-export" onclick="exportData('excel')">Ekspor ke Excel</button>
-                    <button class="btn-export" onclick="exportData('pdf')">Ekspor ke PDF</button>
+                    <button class="btn-export" onclick="window.location.href='pesan_excel.php'">Ekspor ke Excel</button>
+                    <button class="btn-export" onclick="window.location.href='pesan_pdf.php'">Ekspor ke PDF</button>
                 </div>
             </div>
 

@@ -53,8 +53,8 @@ $result = mysqli_query($koneksi, $query);
                     <button type="submit" class="btn-search">Cari</button>
                 </form>
                 <div>
-                    <button class="btn-export" onclick="exportData('excel')">Ekspor ke Excel</button>
-                    <button class="btn-export" onclick="exportData('pdf')">Ekspor ke PDF</button>
+                    <button class="btn-export" onclick="window.location.href='pengajuan_excel.php'">Ekspor ke Excel</button>
+                    <button class="btn-export" onclick="window.location.href='pengajuan_pdf.php'">Ekspor ke PDF</button>
                 </div>
             </div>
 

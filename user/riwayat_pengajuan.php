@@ -4,10 +4,9 @@ include "../includes/auth_check.php";
 
 $required_role = $_SESSION['role'];
 $nama = $_SESSION['nama_lengkap'];
-$user_id = $_SESSION['user_id'];
 
 // Query untuk mengambil semua pengajuan milik pengguna yang sedang login
-$query = "SELECT * FROM pengajuan WHERE id = '$user_id'";
+$query = "SELECT * FROM pengajuan WHERE nama_lengkap = '$nama'";
 $result = mysqli_query($koneksi, $query);
 
 // Menangani pesan sukses atau error
@@ -71,10 +70,8 @@ if (isset($_SESSION['error'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        $no = 1;
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            ?>
+                        <?php if (mysqli_num_rows($result) > 0): ?>
+                        <?php $no = 1; while ($row = mysqli_fetch_assoc($result)): ?>
                             <tr>
                                 <td><?= $no++; ?></td>
                                 <td><?= $row['jenis_pengajuan']; ?></td>
@@ -88,14 +85,25 @@ if (isset($_SESSION['error'])) {
                                         echo '<span class="badge badge-process">Pengajuan Diproses</span>';
                                     } elseif ($status == 'selesai') {
                                         echo '<span class="badge badge-completed">Pengajuan Selesai</span>';
+                                    } elseif ($status == 'ditolak') {
+                                        echo '<span class="badge badge-cancel">Pengajuan Ditolak</span>';
                                     }
                                     ?>
                                 </td>
+                                
                                 <td style="text-align: center;">
-                                    <a href="detail_pengajuan.php?id=<?= $row['id']; ?>" class="btn-action">Detail</a>
+                                    <?php if ($status == 'selesai'): ?>
+                                        <a href="cetak_bukti_pengajuan.php?id=<?= $row['id']; ?>" class="btn-action" target="_blank">Cetak Bukti Pengajuan</a>
+                                    <?php endif; ?>
+                                        <a href="detail_pengajuan.php?id=<?= $row['id']; ?>" class="btn-action">Detail</a>
                                 </td>
                             </tr>
-                        <?php } ?>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td class="empty-data" colspan="5">Belum ada yang di ajukan</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
 

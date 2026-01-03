@@ -47,11 +47,12 @@ $result = mysqli_query($koneksi, $query);
                     <button type="submit" class="btn-search">Cari</button>
                 </form>
                 <div>
-                    <button class="btn-export" onclick="exportData('excel')">Ekspor ke Excel</button>
-                    <button class="btn-export" onclick="exportData('pdf')">Ekspor ke PDF</button>
+                    <button class="btn-export" onclick="window.location.href='layanan_excel.php'">Ekspor ke Excel</button>
+                    <button class="btn-export" onclick="window.location.href='layanan_pdf.php'">Ekspor ke PDF</button>
                     <a href="tambah_layanan.php" class="btn-export" style="text-decoration: none;">Tambah Layanan</a>
                 </div>
             </div>
+
 
             <!-- Tabel Data Layanan -->
             <div class="lowongan-tabel">

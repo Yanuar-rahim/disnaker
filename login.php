@@ -25,7 +25,7 @@ if (isset($_POST['login'])) {
             // Memeriksa password yang dimasukkan dengan password yang terenkripsi
             if (password_verify($password, $user['password'])) {
                 $_SESSION['login'] = true;
-                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['id'] = $user['id'];
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['nik'] = $user['nik'];
                 $_SESSION['nama_lengkap'] = $user['nama_lengkap'];

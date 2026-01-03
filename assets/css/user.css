@@ -8,7 +8,6 @@
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  padding: 25px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -22,8 +21,10 @@
 .card-img {
   padding: 0;
   width: 100%;
-  aspect-ratio: 1/1;
+  aspect-ratio: 2/1;
   object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .card h4 {
@@ -36,6 +37,11 @@
   flex: 1;
 }
 
+.card-text {
+  flex: 1;
+  padding: 25px;
+}
+
 .card a {
   padding: 10px 20px;
   background-color: #0d6efd;
@@ -43,6 +49,7 @@
   border-radius: 6px;
   font-weight: bold;
   text-decoration: none;
+  margin: 25px;
 }
 
 .card a:hover {
@@ -86,14 +93,22 @@ table.detail td {
 
 .badge-new {
   background-color: #007bff;
+  color: #fff;
 }
 
 .badge-process {
   background-color: #ffc107;
+  color: #fff;
 }
 
 .badge-completed {
   background-color: #28a745;
+  color: #fff;
+}
+
+.badge-cancel {
+  background-color: #ff0000;
+  color: #fff;
 }
 
 .form-group {
@@ -143,7 +158,6 @@ table.detail td {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
   transition: transform 0.3s ease;
   text-align: center;
 }
@@ -267,4 +281,11 @@ form button:hover {
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+td.empty-data {
+  text-align: center;
+  padding: 25px;
+  font-style: italic;
+  color: #64748b;
 }

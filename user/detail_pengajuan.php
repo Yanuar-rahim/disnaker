@@ -28,6 +28,37 @@ if (!$data) {
     <title>Detail Pengajuan</title>
     <link rel="stylesheet" href="../assets/css/index.css">
     <link rel="stylesheet" href="../assets/css/user.css">
+
+    <!-- CSS untuk mencetak -->
+    <style>
+        @media print {
+            .navbar, .footer, .btn-primary, .hero {
+                display: none;
+            }
+
+            .main-content {
+                padding: 0;
+            }
+
+            table.detail th, table.detail td {
+                padding: 10px;
+                border: 1px solid #000;
+                color: #000;
+            }
+
+            span {
+                color: #000;
+            }
+
+            .section {
+                margin-top: 20px;
+            }
+
+            .container {
+                width: 80%;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -77,8 +108,9 @@ if (!$data) {
                     </tr>
                 </table>
 
-                <div class="form-group">
-                    <a href="riwayat_pengajuan.php" class="btn-primary">Kembali ke Daftar Pengajuan</a>
+                <div style="margin-top: 20px; height: 20px;">
+                    <button class="btn-primary" onclick="history.back();">Kembali ke daftar pengajuan</button>
+                    <button class="btn-primary" onclick="window.print();">Cetak</button>
                 </div>
             </div>
         </section>

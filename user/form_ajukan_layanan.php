@@ -2,9 +2,11 @@
 include "../config/koneksi.php";
 include "../includes/auth_check.php";
 
+$required_role = $_SESSION['role'];
+
 // Ambil data dari sesi pengguna
 $nama = $_SESSION['nama_lengkap'];
-$user_id = $_SESSION['user_id'];
+$id = $_SESSION['id'];
 $nik = $_SESSION['nik'];
 
 // Jika ID layanan diteruskan di URL, ambil data layanan
@@ -20,18 +22,18 @@ if (isset($_GET['id'])) {
         $tanggal_pengajuan = date('Y-m-d');
 
         // Query untuk memasukkan data pengajuan
-        $queryInsert = "INSERT INTO pengajuan (nama_lengkap, nik, jenis_pengajuan, tanggal_pengajuan, status) 
-                        VALUES ('$nama', '$nik', '$layanan', '$tanggal_pengajuan', 'baru')";
+        $queryInsert = "INSERT INTO pengajuan (nama_lengkap, nik, jenis_pengajuan, tanggal_pengajuan, status, id) 
+                        VALUES ('$nama', '$nik', '$layanan', '$tanggal_pengajuan', 'baru', '$user_id')";
 
         // Eksekusi query pengajuan
         if (mysqli_query($koneksi, $queryInsert)) {
             // Jika berhasil, redirect atau tampilkan pesan sukses
-            $_SESSION['success'] = "Pengajuan layanan '$layanan' berhasil diajukan.";
+            $_SESSION['success'] = "Pengajuan layanan $layanan berhasil diajukan.";
             header('Location: ajukan_layanan.php'); // Redirect ke halaman sukses
             exit();
         } else {
             // Jika gagal, beri pesan error
-            $_SESSION['error'] = "Terjadi kesalahan saat mengajukan layanan '$layanan'. Silakan coba lagi.";
+            $_SESSION['error'] = "Terjadi kesalahan saat mengajukan layanan $layanan. Silakan coba lagi.";
             header('Location: ajukan_layanan.php'); // Redirect ke halaman error
             exit();
         }
